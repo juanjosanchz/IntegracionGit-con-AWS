@@ -1,2 +1,0 @@
-# IntegracionGit-con-AWS
-prueba
