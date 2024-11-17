@@ -1,0 +1,27 @@
+name: Deploy to AWS  # Nombre del flujo de trabajo
+
+on:
+  push:
+    branches:
+      - main  # Este flujo se ejecutará cuando subas algo a la rama "main"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Usa un servidor en la nube para ejecutar las acciones
+
+    steps:
+      # 1. Descargar tu código del repositorio
+      - name: Descargar el código
+        uses: actions/checkout@v3
+
+      # 2. Conectar GitHub con AWS
+      - name: Configurar conexión con AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1  # Cambia esto si usas otra región
+
+      # 3. Verificar la conexión con AWS (por ejemplo, listar los buckets S3)
+      - name: Verificar conexión con AWS
+        run: aws s3 ls
